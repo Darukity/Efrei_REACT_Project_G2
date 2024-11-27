@@ -1,83 +1,61 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import ToggleButton from './ToggleButton.jsx';
-import { AuthContext } from '../context/AuthContext.jsx';
+import '../css/Header.css'; // Import du fichier CSS
 
 function Header() {
-    const { user, logout } = useContext(AuthContext);
-
+    const user = "loris";
+    function logout() {
+        console.log("super");
+    }
     return (
-        <nav className="navbar navbar-expand-lg bg-body-tertiary p-3 ">
-            <div className="container-fluid">
-                <a className="navbar-brand" href="#">
-                    Navbar
-                </a>
-                <button
-                    className="navbar-toggler"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#navbarNav"
-                    aria-controls="navbarNav"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation"
-                >
-                    <span className="navbar-toggler-icon"></span>
-                </button>
-                <div className="collapse navbar-collapse" id="navbarNav">
-                    <ul className="navbar-nav">
-                        <li className="nav-item">
-                            <a className="nav-link active">
-                                <Link to={'/'}>Home</Link>
-                            </a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link active">
-                                <Link to={'/welcome'}>Welcome</Link>
-                            </a>
-                        </li>
-                        {user ? (
-                            <>
-                                <li className="nav-item">
-                                    <a className="nav-link active">
-                                        <Link to={'/users'}>Users</Link>
-                                    </a>
-                                </li>
-                                <li className="nav-item">
-                                    <a className="nav-link active">
-                                        <Link to={'/create-book'}>Creez un Livre</Link>
-                                    </a>
-                                </li>
-
-                                <li className="nav-item">
-                                    <a className="nav-link active">
-                                        <Link to={'/'} onClick={logout}>
-                                            Logout
-                                        </Link>
-                                    </a>
-                                </li>
-                            </>
-                        ) : (
-                            <>
-                                <li className="nav-item">
-                                    <a className="nav-link active">
-                                        <Link to={'/login'}>Login</Link>
-                                    </a>
-                                </li>
-                                <li className="nav-item">
-                                    <a className="nav-link active">
-                                        <Link to={'/register'}>Register</Link>
-                                    </a>
-                                </li>
-                            </>
-                        )}
-
-                        <li className="nav-item">
-                            <ToggleButton />
-                        </li>
-                    </ul>
-                </div>
+        <header className="header-container">
+            <div className="header-left">
+                <img src="https://st2.depositphotos.com/16030310/43120/v/450/depositphotos_431201414-stock-illustration-letter-logo-colorful-geometric-shape.jpg" alt="Logo du site" className="site-logo" />
+                <h1 className="site-title">Générateur de CV</h1>
             </div>
-        </nav>
+            <nav className="header-nav">
+                <ul className="nav-links">
+                    <li>
+                        <Link to="/">Accueil</Link>
+                    </li>
+                    <li>
+                        <Link to="/browse-cvs">Consulter CVs</Link>
+                    </li>
+                    {user && (
+                        <>
+                            <li>
+                                <Link to="/create-cv">Créer CV</Link>
+                            </li>
+                            <li>
+                                <Link to="/edit-cv">Modifier CV</Link>
+                            </li>
+                            <li>
+                                <Link to="/manage-visibility">Visibilité</Link>
+                            </li>
+                            <li>
+                                <Link to="/recommendations">Recommandations</Link>
+                            </li>
+                        </>
+                    )}
+                </ul>
+            </nav>
+            <div className="header-right">
+                {user ? (
+                    <button className="auth-button" onClick={logout()}>
+                        Déconnexion
+                    </button>
+                ) : (
+                    <>
+                        <Link to="/login" className="auth-button">
+                            Connexion
+                        </Link>
+                        <Link to="/register" className="auth-button">
+                            Inscription
+                        </Link>
+                    </>
+                )}
+            </div>
+        </header>
     );
 }
 

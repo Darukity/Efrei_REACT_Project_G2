@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import LoadingScreen from '../components/LoadingScreen.jsx';
 
 function Users() {
     const [users, setUsers] = useState(null);
@@ -28,11 +27,11 @@ function Users() {
             setIsLoading(true);
         }
     }, [users]);
-
+    /*
     if (!isLoading) {
         return <LoadingScreen />;
     }
-
+    */
     return (
         <div>
             <ul className="container-fluid vh-100">
