@@ -10,6 +10,7 @@ import NotFound from './pages/NotFound.jsx';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import CreatorCv from './pages/CreatorCv.jsx';
+import Register from './pages/Register.jsx';
 
 function App() {
     return (
@@ -21,7 +22,7 @@ function App() {
                     <Routes>
                         {/*Public Routes*/}
                         <Route path="/" element={<Home />} />
-                        {/*<Route path="/register" element={<Register />} />*/}
+                        <Route path="/register" element={<Register />} />
                         {/*<Route path="/login" element={<Login />} />*/}
                         <Route path="/create-cv" element={<CreatorCv />} />
 

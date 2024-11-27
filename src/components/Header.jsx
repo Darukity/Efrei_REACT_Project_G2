@@ -1,12 +1,12 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import '../css/Header.css'; // Import du fichier CSS
+import { AuthContext } from '../context/AuthContext.jsx';
 
 function Header() {
-    const user = "loris";
-    function logout() {
-        console.log("super");
-    }
+    const {user,logout} = useContext(AuthContext);
+
+    
     return (
         <header className="header-container">
             <div className="header-left">
@@ -41,7 +41,7 @@ function Header() {
             </nav>
             <div className="header-right">
                 {user ? (
-                    <button className="auth-button" onClick={logout()}>
+                    <button className="auth-button" onClick={logout}>
                         Déconnexion
                     </button>
                 ) : (

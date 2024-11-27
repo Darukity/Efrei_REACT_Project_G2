@@ -51,6 +51,11 @@ function CreatorCv() {
         setFormData({ ...formData, [section]: [...formData[section], newItem] });
     };
 
+    const removeSectionItem = (section, index) => {
+        const updatedSection = formData[section].filter((_, idx) => idx !== index);
+        setFormData({ ...formData, [section]: updatedSection });
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log('CV Data:', formData);
@@ -59,7 +64,7 @@ function CreatorCv() {
 
     return (
         <div className="create-cv-container">
-            <div class="creator-h1">Créer votre CV</div>
+            <div className="creator-h1">Créer votre CV</div>
             <form onSubmit={handleSubmit}>
                 {/* Informations personnelles */}
                 <section className="form-section">
@@ -130,6 +135,13 @@ function CreatorCv() {
                                     }
                                 />
                             </label>
+                            <button
+                                type="button"
+                                className="remove-button"
+                                onClick={() => removeSectionItem('education', index)}
+                            >
+                                Retirer
+                            </button>
                         </div>
                     ))}
                     <button
@@ -176,6 +188,13 @@ function CreatorCv() {
                                     }
                                 />
                             </label>
+                            <button
+                                type="button"
+                                className="remove-button"
+                                onClick={() => removeSectionItem('experience', index)}
+                            >
+                                Retirer
+                            </button>
                         </div>
                     ))}
                     <button
