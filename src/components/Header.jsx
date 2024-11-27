@@ -4,8 +4,8 @@ import '../css/Header.css'; // Import du fichier CSS
 import { AuthContext } from '../context/AuthContext.jsx';
 
 function Header() {
-    const {logout} = useContext(AuthContext);
-    const user="loris";
+    const {user, logout} = useContext(AuthContext);
+
     return (
         <header className="header-container">
             <div className="header-left">
