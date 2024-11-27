@@ -4,9 +4,8 @@ import '../css/Header.css'; // Import du fichier CSS
 import { AuthContext } from '../context/AuthContext.jsx';
 
 function Header() {
-    const {user,logout} = useContext(AuthContext);
-
-    
+    const {logout} = useContext(AuthContext);
+    const user="loris";
     return (
         <header className="header-container">
             <div className="header-left">
@@ -27,23 +26,21 @@ function Header() {
                                 <Link to="/create-cv">Créer CV</Link>
                             </li>
                             <li>
-                                <Link to="/edit-cv">Modifier CV</Link>
+                                <Link to="/my-cv">Mon CV</Link>
                             </li>
-                            <li>
-                                <Link to="/manage-visibility">Visibilité</Link>
-                            </li>
-                            <li>
-                                <Link to="/recommendations">Recommandations</Link>
-                            </li>
+
                         </>
                     )}
                 </ul>
             </nav>
             <div className="header-right">
                 {user ? (
-                    <button className="auth-button" onClick={logout}>
-                        Déconnexion
-                    </button>
+                    <>
+                        <Link to="/profil" className="auth-button">Profil</Link>
+                        <button className="auth-button" onClick={logout}>
+                            Déconnexion
+                        </button>
+                    </>
                 ) : (
                     <>
                         <Link to="/login" className="auth-button">

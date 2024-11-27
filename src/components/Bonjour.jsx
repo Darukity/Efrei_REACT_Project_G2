@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+/*import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { AuthContext } from '../context/AuthContext.jsx';
 
@@ -21,3 +21,4 @@ function Bonjour({ setName }) {
 }
 
 export default Bonjour;
+*/
