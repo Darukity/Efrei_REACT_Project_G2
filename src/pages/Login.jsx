@@ -41,9 +41,10 @@ function Login() {
                             throw new Error(`Erreur HTTP ! Status: ${response.status}`);
                         }
                         const { user } = await response.json();
-                        const { name, email, token } = user;
+                        const { id, name, email, token } = user;
                         login({
                             user: {
+                                id,
                                 name,
                                 email,
                             },
