@@ -13,7 +13,7 @@ function MyCv() {
     useEffect(() => {
         const fetchCv = async () => {
             try {
-                const response = await fetch(`http://localhost:3000/api/cv/${id}`);
+                const response = await fetch(`https://efrei-api-rest-project-g2.onrender.com/api/cv/${id}`);
                 if (!response.ok) {
                     if (response.status === 404) {
                         setCvNotFound(true); // CV non trouvé
@@ -36,7 +36,7 @@ function MyCv() {
     const deleteCV = async () => {
         if (window.confirm('Êtes-vous sûr de vouloir supprimer ce CV ? Cette action est irréversible.')) {
             try {
-                const response = await fetch(`http://localhost:3000/api/cv/${id}`, {
+                const response = await fetch(`https://efrei-api-rest-project-g2.onrender.com/api/cv/${id}`, {
                     method: 'DELETE',
                 });
 
@@ -112,7 +112,7 @@ function MyCv() {
 
     const handleSubmit = async (values) => {
         try {
-            const response = await fetch(`http://localhost:3000/api/cv/${id}`, {
+            const response = await fetch(`https://efrei-api-rest-project-g2.onrender.com/api/cv/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
