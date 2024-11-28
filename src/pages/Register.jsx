@@ -30,7 +30,7 @@ function Register() {
                 onSubmit={async (values) => {
                     try {
                         const response = await fetch(
-                            'https://nodeexpresscourse-m1-dev-g3-effrei.onrender.com/api/auth/register',
+                            'https://efrei-api-rest-project-g2.onrender.com/api/auth/register',
                             {
                                 method: 'POST',
                                 body: JSON.stringify(values),
