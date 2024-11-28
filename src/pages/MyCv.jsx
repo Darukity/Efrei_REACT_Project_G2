@@ -9,7 +9,7 @@ function MyCv() {
     const navigate = useNavigate();
     const [cv, setCv] = useState(null);
     const [cvNotFound, setCvNotFound] = useState(false);
-
+    console.log(id);
     useEffect(() => {
         const fetchCv = async () => {
             try {
