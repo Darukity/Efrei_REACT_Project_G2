@@ -29,6 +29,7 @@ function Register() {
                 })}
                 onSubmit={async (values) => {
                     try {
+                        console.log("ici");
                         const response = await fetch(
                             'https://efrei-api-rest-project-g2.onrender.com/api/auth/register',
                             {
