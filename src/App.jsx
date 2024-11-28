@@ -13,6 +13,7 @@ import CreatorCv from './pages/CreatorCv.jsx';
 import Register from './pages/Register.jsx';
 import Login from './pages/Login.jsx';
 import MyCv from './pages/MyCv.jsx';
+import Profil from './pages/Profil.jsx';
 //import Welcome from './components/Bonjour.jsx';
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
                         <Route path="/login" element={<Login />} />
                         <Route path="/create-cv" element={<CreatorCv />} />
                         <Route path="/my-cv" element={<MyCv />} />
+                        <Route path="/profil" element={<Profil />} />
                         {/*<Route path="/welcome" element={<Welcome />} />*/}
 
                         {/*Private Routes*/}
