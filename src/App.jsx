@@ -4,7 +4,7 @@ import { Route, Routes } from 'react-router-dom';
 import Home from './pages/Home.jsx';
 import Header from './components/Header.jsx';
 import React, { useContext } from 'react';
-import Users from './pages/Users.jsx';
+import CvList from './pages/CvList.jsx';
 import ProtectedRoute from './routes/ProtectedRoute.jsx';
 import NotFound from './pages/NotFound.jsx';
 import 'react-toastify/dist/ReactToastify.css';
@@ -46,7 +46,7 @@ function App() {
                             path="/users"
                             element={
                                 <ProtectedRoute>
-                                    <Users />
+                                    <CvList />
                                 </ProtectedRoute>
                             }
                         />
