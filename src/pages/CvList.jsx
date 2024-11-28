@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-function Users() {
+function CvList() {
     const [users, setUsers] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
@@ -45,4 +45,4 @@ function Users() {
     );
 }
 
-export default Users;
+export default CvList;
