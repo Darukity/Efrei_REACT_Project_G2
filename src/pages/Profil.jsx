@@ -3,10 +3,10 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { AuthContext } from '../context/AuthContext.jsx';
 import { toast } from 'react-toastify';
-import '../css/Profil.css'; // Fichier CSS pour les styles
+import '../css/Profil.css';
 
 function Profil() {
-    const { user, updateUser , token} = useContext(AuthContext); // Assume user info is stored in AuthContext
+    const { user, updateUser , token} = useContext(AuthContext);
     
     const [editMode, setEditMode] = useState(false);
 
@@ -37,7 +37,7 @@ function Profil() {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}` // Include auth token if required
+                    Authorization: `Bearer ${token}`
                 },
                 body: JSON.stringify(values)
             });
@@ -47,7 +47,7 @@ function Profil() {
             }
 
             const updatedUser = await response.json();
-            updateUser(updatedUser); // Update user in context
+            updateUser(updatedUser);
             toast.success('Profil mis à jour avec succès !');
             setEditMode(false);
         } catch (error) {

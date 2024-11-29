@@ -31,7 +31,7 @@
 .cv-viewer-name {
     font-size: 1.5rem;
     font-weight: bold;
-    color: #222;
+    color: #222; 
 }
 
 .cv-viewer-description {
@@ -44,7 +44,7 @@
     font-size: 1.25rem;
     font-weight: bold;
     color: #444;
-    margin-bottom: 10px;
+    margin-bottom: 10px; 
 }
 
 .cv-viewer-list {
@@ -52,6 +52,7 @@
     padding: 0;
     margin: 0;
 }
+
 
 .cv-viewer-list-item {
     padding: 8px 0;

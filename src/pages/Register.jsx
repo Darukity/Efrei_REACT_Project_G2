@@ -2,7 +2,7 @@ import React from 'react';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
-import '../css/Register.css'; // Fichier CSS pour les styles
+import '../css/Register.css';
 
 function Register() {
     const navigate = useNavigate();
@@ -32,7 +32,6 @@ function Register() {
                 })}
                 onSubmit={async (values) => {
                     try {
-                        console.log("ici");
                         const response = await fetch(
                             'https://efrei-api-rest-project-g2.onrender.com/api/auth/register',
                             {
