@@ -52,3 +52,11 @@
     background-color: #c642e0; 
     color: white;
 }
+.separation {
+    width: 100%;
+    border-bottom: 4px solid black; /* Ajoute une bordure noire épaisse de 4px en bas */
+    background-color: transparent; /* Optionnel : pour enlever une couleur de fond si présente */
+    padding: 8px 12px; /* Ajuste l'espacement pour un meilleur affichage */
+    font-size: 14px; /* Optionnel : pour harmoniser avec le design */
+    margin-bottom: 20px;
+}

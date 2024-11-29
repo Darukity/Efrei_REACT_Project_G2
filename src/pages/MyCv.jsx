@@ -8,11 +8,11 @@ import * as Yup from 'yup';
 function MyCv() {
     const { user, token } = useContext(AuthContext);
     const navigate = useNavigate();
-    const [cv, setCv] = useState(null);
+    const [cvs, setCvs] = useState([]);
     const [cvNotFound, setCvNotFound] = useState(false);
 
     useEffect(() => {
-        const fetchCv = async () => {
+        const fetchCvs = async () => {
             try {
                 const response = await fetch(
                     `https://efrei-api-rest-project-g2.onrender.com/api/cv/user/${user.id}`,
@@ -26,23 +26,22 @@ function MyCv() {
                     else throw new Error(`HTTP error! Status: ${response.status}`);
                 } else {
                     const data = await response.json();
-                    setCv(data);
+                    setCvs(data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
                 }
             } catch (error) {
-                console.error('Failed to fetch CV:', error);
+                console.error('Failed to fetch CVs:', error);
                 setCvNotFound(true);
             }
         };
 
-        fetchCv();
+        fetchCvs();
     }, [user.id, token]);
 
-
-    const deleteCV = async () => {
+    const deleteCV = async (cvId) => {
         if (window.confirm('Êtes-vous sûr de vouloir supprimer ce CV ?')) {
             try {
                 const response = await fetch(
-                    `https://efrei-api-rest-project-g2.onrender.com/api/cv/${cv[0]._id}`,
+                    `https://efrei-api-rest-project-g2.onrender.com/api/cv/${cvId}`,
                     {
                         method: 'DELETE',
                         headers: { Authorization: `Bearer ${token}` },
@@ -50,7 +49,7 @@ function MyCv() {
                 );
                 if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
                 alert('CV supprimé avec succès !');
-                navigate('/');
+                setCvs(cvs.filter((cv) => cv._id !== cvId)); // Mettre à jour l'état local
             } catch (error) {
                 console.error('Failed to delete CV:', error);
                 alert('Échec de la suppression du CV.');
@@ -73,16 +72,9 @@ function MyCv() {
         );
     }
 
-    if (!cv) {
+    if (!cvs.length) {
         return <p>Chargement...</p>;
     }
-    
-    const initialValues = {
-        personalInfo: cv[0].personalInfo || { firstName: '', lastName: '', description: '' },
-        education: cv[0].education || [],
-        experience: cv[0].experience || [],
-        isVisible: cv[0].isVisible || false,
-    };
 
     const validationSchema = Yup.object({
         personalInfo: Yup.object({
@@ -111,10 +103,10 @@ function MyCv() {
         ),
     });
 
-    const handleSubmit = async (values) => {
+    const handleSubmit = async (values, cvId) => {
         try {
             const response = await fetch(
-                `https://efrei-api-rest-project-g2.onrender.com/api/cv/${cv[0]._id}`,
+                `https://efrei-api-rest-project-g2.onrender.com/api/cv/${cvId}`,
                 {
                     method: 'PUT',
                     headers: {
@@ -134,125 +126,146 @@ function MyCv() {
 
     return (
         <div className="my-cv-container">
-            <button onClick={() => navigate(`/CvViewer/${cv[0]._id}`)} className="mycv-button mycv-button-navigate">
-                Voir mon CV formater et les commentaires recu
-             </button>
-            <h1>Gérer mon CV</h1>
-            <Formik
-                initialValues={initialValues}
-                validationSchema={validationSchema}
-                onSubmit={handleSubmit}
-            >
-                {({ values, handleChange }) => (
-                    <Form>
-                        <div>
-                            <h2 className='top_space'>Informations personnelles</h2>
-                            <FieldArray name="personalInfo">
-                                {({ remove, push }) => (
-                                    <>
-                                        <Field name={`personalInfo.firstName`} placeholder="firstName" />
-                                        <Field name={`personalInfo.lastName`} placeholder="lastName" />
-                                        <Field name={`personalInfo.description`} placeholder="description" />
-                                        <button
-                                            type="button"
-                                            className="mycv-button mycv-button-remove"
-                                            onClick={() => remove(index)}
-                                            >
-                                            Retirer
-                                        </button>
-                                            
-                                        <button
-                                            type="button"
-                                            className="mycv-button mycv-button-add"
-                                            onClick={() => push({ firstName: '', lastName: '', description: '' })}
-                                        >
-                                            Ajouter une personalInfo
-                                        </button>
-                                    </>
-                                )}
-                            </FieldArray>
-                        </div>
+            <h1>Gérer mes CV</h1>
+            {cvs.map((cv) => (
+                <div key={cv._id} className="cv-item">
+                    <button
+                        onClick={() => navigate(`/CvViewer/${cv._id}`)}
+                        className="mycv-button mycv-button-navigate"
+                    >
+                        Voir le CV formaté et les commentaires reçus
+                    </button>
+                    <Formik
+                        initialValues={{
+                            personalInfo: cv.personalInfo || { firstName: '', lastName: '', description: '' },
+                            education: cv.education || [],
+                            experience: cv.experience || [],
+                            isVisible: cv.isVisible || false,
+                        }}
+                        validationSchema={validationSchema}
+                        onSubmit={(values) => handleSubmit(values, cv._id)}
+                    >
+                        {({ values, handleChange }) => (
+                            <Form>
+                                <div>
+                                    <h2 className="top_space">Informations personnelles</h2>
+                                    <Field name="personalInfo.firstName" placeholder="Prénom" />
+                                    <Field name="personalInfo.lastName" placeholder="Nom" />
+                                    <Field name="personalInfo.description" placeholder="Description" />
+                                </div>
 
-                        <div>
-                            <h2 className='top_space'>Éducation</h2>
-                            <FieldArray name="education">
-                                {({ remove, push }) => (
-                                    <>
-                                        {values.education.map((_, index) => (
-                                            <div key={index}>
-                                                <Field name={`education.${index}.degree`} placeholder="Diplôme" />
-                                                <Field name={`education.${index}.institution`} placeholder="Établissement" />
-                                                <Field name={`education.${index}.year`} placeholder="Année" type="number" />
+                                <div>
+                                    <h2 className="top_space">Éducation</h2>
+                                    <FieldArray name="education">
+                                        {({ remove, push }) => (
+                                            <>
+                                                {values.education.map((_, index) => (
+                                                    <div key={index}>
+                                                        <Field
+                                                            name={`education.${index}.degree`}
+                                                            placeholder="Diplôme"
+                                                        />
+                                                        <Field
+                                                            name={`education.${index}.institution`}
+                                                            placeholder="Établissement"
+                                                        />
+                                                        <Field
+                                                            name={`education.${index}.year`}
+                                                            placeholder="Année"
+                                                            type="number"
+                                                        />
+                                                        <button
+                                                            type="button"
+                                                            className="mycv-button mycv-button-remove"
+                                                            onClick={() => remove(index)}
+                                                        >
+                                                            Retirer
+                                                        </button>
+                                                    </div>
+                                                ))}
                                                 <button
                                                     type="button"
-                                                    className="mycv-button mycv-button-remove"
-                                                    onClick={() => remove(index)}
+                                                    className="mycv-button mycv-button-add"
+                                                    onClick={() => push({ degree: '', institution: '', year: '' })}
                                                 >
-                                                    Retirer
+                                                    Ajouter une éducation
                                                 </button>
-                                            </div>
-                                        ))}
-                                        <button
-                                            type="button"
-                                            className="mycv-button mycv-button-add"
-                                            onClick={() => push({ degree: '', institution: '', year: '' })}
-                                        >
-                                            Ajouter une éducation
-                                        </button>
-                                    </>
-                                )}
-                            </FieldArray>
-                        </div>
+                                            </>
+                                        )}
+                                    </FieldArray>
+                                </div>
 
-                        <div>
-                            <h2 className='top_space'>Expérience</h2>
-                            <FieldArray name="experience">
-                                {({ remove, push }) => (
-                                    <>
-                                        {values.experience.map((_, index) => (
-                                            <div key={index}>
-                                                <Field name={`experience.${index}.jobTitle`} placeholder="Poste" />
-                                                <Field name={`experience.${index}.company`} placeholder="Entreprise" />
-                                                <Field name={`experience.${index}.years`} placeholder="Années" type="number" />
+                                <div>
+                                    <h2 className="top_space">Expérience</h2>
+                                    <FieldArray name="experience">
+                                        {({ remove, push }) => (
+                                            <>
+                                                {values.experience.map((_, index) => (
+                                                    <div key={index}>
+                                                        <Field
+                                                            name={`experience.${index}.jobTitle`}
+                                                            placeholder="Poste"
+                                                        />
+                                                        <Field
+                                                            name={`experience.${index}.company`}
+                                                            placeholder="Entreprise"
+                                                        />
+                                                        <Field
+                                                            name={`experience.${index}.years`}
+                                                            placeholder="Années"
+                                                            type="number"
+                                                        />
+                                                        <button
+                                                            type="button"
+                                                            className="mycv-button mycv-button-remove"
+                                                            onClick={() => remove(index)}
+                                                        >
+                                                            Retirer
+                                                        </button>
+                                                    </div>
+                                                ))}
                                                 <button
                                                     type="button"
-                                                    className="mycv-button mycv-button-remove"
-                                                    onClick={() => remove(index)}
+                                                    className="mycv-button mycv-button-add"
+                                                    onClick={() => push({ jobTitle: '', company: '', years: '' })}
                                                 >
-                                                    Retirer
+                                                    Ajouter une expérience
                                                 </button>
-                                            </div>
-                                        ))}
-                                        <button
-                                            type="button"
-                                            className="mycv-button mycv-button-add"
-                                            onClick={() => push({ jobTitle: '', company: '', years: '' })}
-                                        >
-                                            Ajouter une expérience
-                                        </button>
-                                    </>
-                                )}
-                            </FieldArray>
-                        </div>
+                                            </>
+                                        )}
+                                    </FieldArray>
+                                </div>
 
-                        <div>
-                            <label>
-                                <Field type="checkbox" name="isVisible" onChange={handleChange} />
-                                Rendre le CV public
-                            </label>
-                        </div>
+                                <div>
+                                    <label>
+                                        <Field
+                                            type="checkbox"
+                                            name="isVisible"
+                                            onChange={handleChange}
+                                        />
+                                        Rendre le CV public
+                                    </label>
+                                </div>
 
-                        <button type="submit" className="mycv-button mycv-button-save">
-                            Enregistrer
-                        </button>
-                        <button onClick={deleteCV} className="mycv-button mycv-button-delete">
-                            Supprimer mon CV
-                        </button>
-                    </Form>
-                )}
-            </Formik>
+                                <button type="submit" className="mycv-button mycv-button-save">
+                                    Enregistrer
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={() => deleteCV(cv._id)}
+                                    className="mycv-button mycv-button-delete"
+                                >
+                                    Supprimer ce CV
+                                </button>
+                            </Form>
+                        )}
+                    </Formik>
+                    <div className='separation'></div>
+                </div>
+                
+            ))}
         </div>
+    );
+}
 
-            );
-        }
 export default MyCv;
