@@ -1,0 +1,95 @@
+.cv-viewer-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 4em;
+}
+
+.cv-viewer-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.cv-viewer-header h1 {
+    color: #333;
+    font-size: 2rem;
+}
+
+.cv-viewer-content {
+    padding: 20px;
+}
+
+.cv-viewer-section {
+    margin-bottom: 20px;
+}
+
+.cv-viewer-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #222;
+}
+
+.cv-viewer-description {
+    font-size: 1rem;
+    color: #555;
+    margin-top: 10px;
+}
+
+.cv-viewer-subheading {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #444;
+    margin-bottom: 10px;
+}
+
+.cv-viewer-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.cv-viewer-list-item {
+    padding: 8px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.cv-viewer-list-item:last-child {
+    border-bottom: none;
+}
+
+.cv-viewer-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.cv-viewer-button {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.cv-viewer-button:hover {
+    background-color: #0056b3;
+}
+
+.cv-viewer-error {
+    color: red;
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+.cv-viewer-loading {
+    color: #555;
+    text-align: center;
+    font-size: 1.25rem;
+}
