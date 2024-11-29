@@ -7,7 +7,7 @@ const AuthProvider = ({ children }) => {
     const navigate = useNavigate();
     const [user, setUser] = useState(null);
     const [token, setToken] = useState(null);
-    const [loading, setLoading] = useState(true); // Ajout du chargement initial
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const storedUser = localStorage.getItem('user');
@@ -17,7 +17,7 @@ const AuthProvider = ({ children }) => {
             setUser(JSON.parse(storedUser));
             setToken(storedToken);
         }
-        setLoading(false); // Fin du chargement une fois les données récupérées
+        setLoading(false); 
     }, []);
 
     const updateUser = (value) => {
@@ -47,7 +47,7 @@ const AuthProvider = ({ children }) => {
             value={{
                 user,
                 token,
-                loading, // Ajouter l'état de chargement au contexte
+                loading,
                 login,
                 logout,
                 updateUser,
