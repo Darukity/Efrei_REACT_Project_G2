@@ -4,8 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { AuthContext } from '../context/AuthContext.jsx';
 import { toast } from 'react-toastify';
-import '../css/Login.css'; // Fichier CSS pour les styles
-
+import '../css/Login.css'; 
 function Login() {
     const navigate = useNavigate();
     const { login } = useContext(AuthContext);

@@ -2,12 +2,11 @@ import React, { useContext, useState } from 'react';
 import { Formik, Field, Form, FieldArray, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { AuthContext } from '../context/AuthContext.jsx';
-import '../css/Creator.css'; // Import du fichier CSS
+import '../css/Creator.css'; 
 
 const CreatorCv = () => {
     const { user, updateUser , token} = useContext(AuthContext);
     
-    console.log("userId1= ",user.id);
     const initialValues = {
         userId: user.id,
         personalInfo: {
@@ -61,8 +60,6 @@ const CreatorCv = () => {
     });
 
     const handleSubmit = async (values, { setSubmitting, resetForm, setFieldError }) => {
-        console.log("values = ",values);
-        console.log("userId= ",user.id);
         try {
             const response = await fetch('https://efrei-api-rest-project-g2.onrender.com/api/cv', {
                 method: 'POST',

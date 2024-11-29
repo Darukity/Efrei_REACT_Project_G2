@@ -7,8 +7,8 @@ const CvList = () => {
     const { token } = useContext(AuthContext);
 
     const [cvList, setCvList] = useState([]);
-    const [filteredCvList, setFilteredCvList] = useState([]); // Liste filtrée pour la recherche
-    const [searchTerm, setSearchTerm] = useState(""); // Terme de recherche
+    const [filteredCvList, setFilteredCvList] = useState([]); 
+    const [searchTerm, setSearchTerm] = useState(""); 
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -28,8 +28,8 @@ const CvList = () => {
                     throw new Error("Failed to fetch CVs");
                 }
                 const data = await response.json();
-                setCvList(data); // Stocke tous les CVs
-                setFilteredCvList(data); // Initialise la liste filtrée avec tous les CVs
+                setCvList(data); 
+                setFilteredCvList(data); 
             } catch (error) {
                 console.error("Error fetching CVs:", error);
             }
@@ -38,7 +38,6 @@ const CvList = () => {
         fetchCvs();
     }, [token]);
 
-    // Fonction pour filtrer les CVs en fonction du terme de recherche
     const handleSearch = (event) => {
         const term = event.target.value.toLowerCase();
         setSearchTerm(term);

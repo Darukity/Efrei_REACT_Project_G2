@@ -1,20 +1,19 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext.jsx';
-import "../css/CvViewer.css"; // Importer le fichier CSS spécifique
+import "../css/CvViewer.css"; 
 
 const CvViewer = () => {
-    const { id } = useParams(); // Récupère l'ID depuis l'URL
+    const { id } = useParams(); 
     const { user, token } = useContext(AuthContext);
 
-    const navigate = useNavigate(); // Pour rediriger
+    const navigate = useNavigate(); 
     const [cvData, setCvData] = useState(null);
-    const [comments, setComments] = useState([]); // État pour les commentaires
-    const [newComment, setNewComment] = useState(''); // État pour un nouveau commentaire
-    const [commentsVisible, setCommentsVisible] = useState(false); // État pour afficher/masquer les commentaires
+    const [comments, setComments] = useState([]); 
+    const [newComment, setNewComment] = useState(''); 
+    const [commentsVisible, setCommentsVisible] = useState(false); 
     const [error, setError] = useState(null);
 
-    // Récupération des données du CV
     useEffect(() => {
         const fetchCv = async () => {
             try {
@@ -40,7 +39,6 @@ const CvViewer = () => {
         fetchCv();
     }, [id, token]);
 
-    // Récupération des commentaires du CV
     const fetchComments = async () => {
         try {
             const response = await fetch(`https://efrei-api-rest-project-g2.onrender.com/api/review/cv/${id}`, {
@@ -60,9 +58,8 @@ const CvViewer = () => {
         }
     };
 
-    // Ajouter un nouveau commentaire
     const addComment = async () => {
-        if (!newComment.trim()) return; // Empêche l'envoi d'un commentaire vide
+        if (!newComment.trim()) return;
         try {
             const response = await fetch(`https://efrei-api-rest-project-g2.onrender.com/api/review/`, {
                 method: "POST",
@@ -75,15 +72,14 @@ const CvViewer = () => {
             if (!response.ok) {
                 throw new Error('Failed to add comment');
             }
-            // Rafraîchir les commentaires après l'ajout
+
             fetchComments();
-            setNewComment(''); // Réinitialise le champ
+            setNewComment(''); 
         } catch (err) {
             setError(err.message);
         }
     };
 
-    // Modifier un commentaire
     const editComment = async (commentId, newContent) => {
         try {
             const response = await fetch(`https://efrei-api-rest-project-g2.onrender.com/api/review/${commentId}`, {
@@ -97,14 +93,12 @@ const CvViewer = () => {
             if (!response.ok) {
                 throw new Error('Not authorized to edit this comment');
             }
-            // Rafraîchir les commentaires après la modification
             fetchComments();
         } catch (err) {
             alert(err.message);
         }
     };
 
-    // Supprimer un commentaire
     const deleteComment = async (commentId) => {
         try {
             const response = await fetch(`https://efrei-api-rest-project-g2.onrender.com/api/review/${commentId}`, {
@@ -115,26 +109,24 @@ const CvViewer = () => {
                 },
             });
             if (!response.ok) {
-                throw new Error('Not authorized to delete this comment');
+                throw new Error('Pas authorisé');
             }
-            // Rafraîchir les commentaires après la suppression
             fetchComments();
         } catch (err) {
             alert(err.message);
         }
     };
 
-    // Gestion de l'affichage/masquage des commentaires
     const toggleComments = async () => {
         if (!commentsVisible) {
-            await fetchComments(); // Récupère les commentaires seulement si non déjà visibles
+            await fetchComments(); 
         }
         setCommentsVisible(!commentsVisible);
     };
 
     if (error) {
         if (error === 'Unauthorized to see this CV') {
-            navigate('/login'); // Redirige vers la liste si accès interdit
+            navigate('/login');
             return null;
         }
         return <div className="cv-viewer-error">{error}</div>;
@@ -193,7 +185,6 @@ const CvViewer = () => {
                         <h3>Éducation</h3>
                         <ul>
                             {cvData.education.map((edu) => {
-                                // Enlever le point à la fin si présent
                                 const degree = edu.degree.trim();
                                 const formattedDegree = degree.endsWith('.') ? degree.slice(0, -1) : degree;
                                 return (
@@ -247,16 +238,6 @@ const CvViewer = () => {
                     )}
                 </section>
             </main>
-            <footer className="cv-viewer-footer">
-                <button className="cv-viewer-button" onClick={() => navigate('/browse-cvs')}>
-                    Retour
-                </button>
-                {cvData.userId === user.id && (
-                    <button className="cv-viewer-button" onClick={() => navigate(`/my-cv`)}>
-                        Éditer
-                    </button>
-                )}
-            </footer>
         </div>
     );
 };
