@@ -222,7 +222,7 @@ const CreatorCv = () => {
                                                     />
                                                 </div>
                                                 <div>
-                                                    <label>Années:</label>
+                                                    <label>Nombre d'Année travaillé:</label>
                                                     <Field
                                                         name={`experience[${index}].years`}
                                                         type="number"

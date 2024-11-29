@@ -20,6 +20,13 @@ const AuthProvider = ({ children }) => {
         setLoading(false); // Fin du chargement une fois les données récupérées
     }, []);
 
+    const updateUser = (value) => {
+        localStorage.setItem('token', value.token);
+        localStorage.setItem('user', JSON.stringify(value.user));
+        setToken(value.token);
+        setUser(value.user);
+    };
+
     const login = (value) => {
         localStorage.setItem('token', value.token);
         localStorage.setItem('user', JSON.stringify(value.user));
@@ -43,6 +50,7 @@ const AuthProvider = ({ children }) => {
                 loading, // Ajouter l'état de chargement au contexte
                 login,
                 logout,
+                updateUser,
             }}
         >
             {children}
