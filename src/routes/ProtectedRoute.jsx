@@ -6,7 +6,7 @@ const ProtectedRoute = ({ children }) => {
     const { user, loading } = useContext(AuthContext);
 
     if (loading) {
-        return <div>Chargement...</div>; // Vous pouvez personnaliser cette interface
+        return <div>Chargement...</div>; 
     }
 
     return user ? children : <Navigate to="/login" />;

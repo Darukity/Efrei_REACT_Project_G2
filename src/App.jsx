@@ -29,7 +29,6 @@ function App() {
                     <Route path="/register" element={<Register />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/browse-cvs" element={<CvList />} />
-                    {/*<Route path="/welcome" element={<Welcome />} />*/}
 
                     {/*Private Routes*/}
                     <Route
