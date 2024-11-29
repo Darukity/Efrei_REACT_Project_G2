@@ -187,7 +187,7 @@ const CvViewer = () => {
                 {/* Section des commentaires */}
                 <section className="cv-viewer-section">
                     <button className="cv-viewer-button" onClick={toggleComments}>
-                        {commentsVisible ? 'Masquer les commentaires' : 'Afficher les commentaires'}
+                        {commentsVisible ? 'Masquer les commentaires' : 'Afficher et modifier les commentaires'}
                     </button>
 
                     {commentsVisible && (
