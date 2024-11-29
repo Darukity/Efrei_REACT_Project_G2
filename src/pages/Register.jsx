@@ -24,7 +24,10 @@ function Register() {
                         .email('Adresse email invalide')
                         .required('Ce champ est requis'),
                     password: Yup.string()
-                        .min(8, 'Le mot de passe doit contenir au moins 8 caractères')
+                        .matches(
+                            /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z]).{8,}$/,
+                            'Le mot de passe doit contenir au moins 8 caractères, une majuscule, un chiffre et un caractère spécial.'
+                        )
                         .required('Ce champ est requis'),
                 })}
                 onSubmit={async (values) => {
