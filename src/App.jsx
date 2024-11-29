@@ -28,25 +28,31 @@ function App() {
                         <Route path="/" element={<Home />} />
                         <Route path="/register" element={<Register />} />
                         <Route path="/login" element={<Login />} />
-                        <Route path="/create-cv" element={<CreatorCv />} />
-                        <Route path="/my-cv" element={<MyCv />} />
-                        <Route path="/profil" element={<Profil />} />
+                        {/*<Route path="/browse-cvs" element={<??? />} />*/}
                         {/*<Route path="/welcome" element={<Welcome />} />*/}
 
                         {/*Private Routes*/}
                         <Route
-                            path="/create-book"
+                            path="/create-cv"
                             element={
                                 <ProtectedRoute>
-                                    
+                                    <CreatorCv />
                                 </ProtectedRoute>
                             }
                         />
                         <Route
-                            path="/users"
+                            path="/my-cv"
                             element={
                                 <ProtectedRoute>
-                                    <CvList />
+                                    <MyCv />
+                                </ProtectedRoute>
+                            }
+                        />
+                        <Route
+                            path="/profil"
+                            element={
+                                <ProtectedRoute>
+                                    <Profil />
                                 </ProtectedRoute>
                             }
                         />

@@ -51,7 +51,7 @@ function Login() {
                             token,
                         });
                         toast.success('Vous êtes connectés !');
-                        navigate('/welcome');
+                        navigate('/');
                     } catch (error) {
                         console.error('Échec de la connexion :', error);
                         toast.error('Échec de la connexion !');

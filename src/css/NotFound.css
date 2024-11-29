@@ -1,0 +1,14 @@
+.not-found-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f9f9f9;
+    margin-top: 15em;
+}
+
+.not-found-text {
+    font-size: 4rem;
+    color: red;
+    font-weight: bold;
+    text-align: center;
+}
