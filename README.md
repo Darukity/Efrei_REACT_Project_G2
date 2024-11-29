@@ -43,7 +43,7 @@ Cette approche collaborative a permis de résoudre rapidement les problèmes et 
 
 <h2>Branches Git</h2>
 <ul>
-<li><strong>Branche loulounav78 :</strong> gérée par <strong>Loris NAVARRO</strong>.</li>
+<li><strong>Branche loris :</strong> gérée par <strong>Loris NAVARRO</strong>.</li>
 <li><strong>Branche Samuel :</strong> gérée par <strong>Samuel CHARTON</strong>.</li>
 <li><strong>Branche Gayyyyyytan :</strong> gérée par <strong>Gaëtan Maire</strong>.</li>
 </ul>
