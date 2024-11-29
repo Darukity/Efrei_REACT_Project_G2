@@ -93,3 +93,42 @@
     text-align: center;
     font-size: 1.25rem;
 }
+
+.cv-viewer-comments button,
+.cv-viewer-add-comment button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 8px 12px;
+    transition: background-color 0.3s ease;
+}
+
+.cv-viewer-comments button:hover,
+.cv-viewer-add-comment button:hover {
+    background-color: #0056b3;
+}
+.cv-viewer-comments-list {
+    list-style: none; 
+    padding: 0; 
+    margin: 0; 
+}
+
+.cv-viewer-add-comment textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    background-color: #fff;
+    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+    box-sizing: border-box;
+}
+
+.cv-viewer-add-comment textarea:focus {
+    border-color: #007bff;
+    outline: none;
+}

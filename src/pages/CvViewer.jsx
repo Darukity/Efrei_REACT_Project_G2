@@ -32,13 +32,11 @@ const CvViewer = () => {
                     throw new Error('Failed to fetch CV');
                 }
                 const data = await response.json();
-                console.log('CV Data:', data);  // Vérifier la structure des données
                 setCvData(data);
             } catch (err) {
                 setError(err.message);
             }
         };
-
         fetchCv();
     }, [id, token]);
 
@@ -77,8 +75,8 @@ const CvViewer = () => {
             if (!response.ok) {
                 throw new Error('Failed to add comment');
             }
-            const createdComment = await response.json();
-            setComments([...comments, createdComment.recommendation]); // Ajoute le commentaire localement
+            // Rafraîchir les commentaires après l'ajout
+            fetchComments();
             setNewComment(''); // Réinitialise le champ
         } catch (err) {
             setError(err.message);
@@ -99,11 +97,8 @@ const CvViewer = () => {
             if (!response.ok) {
                 throw new Error('Not authorized to edit this comment');
             }
-            setComments(
-                comments.map((c) =>
-                    c._id === commentId ? { ...c, comment: newContent } : c
-                )
-            );
+            // Rafraîchir les commentaires après la modification
+            fetchComments();
         } catch (err) {
             alert(err.message);
         }
@@ -122,7 +117,8 @@ const CvViewer = () => {
             if (!response.ok) {
                 throw new Error('Not authorized to delete this comment');
             }
-            setComments(comments.filter((c) => c._id !== commentId));
+            // Rafraîchir les commentaires après la suppression
+            fetchComments();
         } catch (err) {
             alert(err.message);
         }
@@ -196,13 +192,18 @@ const CvViewer = () => {
                     <section className="cv-viewer-section">
                         <h3>Éducation</h3>
                         <ul>
-                            {cvData.education.map((edu) => (
-                                <li key={edu.id}>
-                                    <h4>{edu.degree}</h4>
-                                    <p>{edu.institution}</p>
-                                    <p>{edu.startDate} - {edu.endDate}</p>
-                                </li>
-                            ))}
+                            {cvData.education.map((edu) => {
+                                // Enlever le point à la fin si présent
+                                const degree = edu.degree.trim();
+                                const formattedDegree = degree.endsWith('.') ? degree.slice(0, -1) : degree;
+                                return (
+                                    <li key={edu.id}>
+                                        <h4>{formattedDegree}</h4>
+                                        <p>{edu.institution}</p>
+                                        <p>{edu.startDate} - {edu.endDate}</p>
+                                    </li>
+                                );
+                            })}
                         </ul>
                     </section>
                 )}
@@ -238,19 +239,14 @@ const CvViewer = () => {
                                 <textarea
                                     value={newComment}
                                     onChange={(e) => setNewComment(e.target.value)}
-                                    placeholder="Ajoutez un commentaire..."
+                                    placeholder="Ajouter un commentaire"
                                 />
-                                <button onClick={addComment}>Envoyer</button>
+                                <button onClick={addComment}>Ajouter</button>
                             </div>
                         </div>
                     )}
                 </section>
             </main>
-            <footer className="cv-viewer-footer">
-                <button className="cv-viewer-button" onClick={() => navigate('/browse-cvs')}>
-                    Retour
-                </button>
-            </footer>
         </div>
     );
 };
