@@ -1,9 +1,10 @@
 import React from 'react';
+import '../css/NotFound.css'; // Fichier CSS pour ce composant
 
 function NotFound() {
     return (
-        <div>
-            <h1>404 - NOT FOUND </h1>
+        <div className="not-found-container">
+            <h1 className="not-found-text">404 - NOT FOUND</h1>
         </div>
     );
 }

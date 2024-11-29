@@ -7,6 +7,7 @@ import '../css/Profil.css'; // Fichier CSS pour les styles
 
 function Profil() {
     const { user, updateUser , token} = useContext(AuthContext); // Assume user info is stored in AuthContext
+    
     const [editMode, setEditMode] = useState(false);
 
     const initialValues = {
@@ -26,7 +27,7 @@ function Profil() {
 
     const handleSubmit = async (values) => {
         try {
-            const response = await fetch(`https://efrei-api-rest-project-g2.onrender.com/api/user/${user.id}`, {
+            const response = await fetch(`https://efrei-api-rest-project-g2.onrender.com/api/user/${user.id}/`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

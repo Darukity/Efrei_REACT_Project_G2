@@ -1,19 +1,26 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { Field, Form, Formik, FieldArray } from 'formik';
+import { AuthContext } from '../context/AuthContext.jsx';
 import '../css/MyCv.css';
 import * as Yup from 'yup';
 
 function MyCv() {
-    const { id } = useParams();
+    const { user, updateUser , token} = useContext(AuthContext);
+    
     const navigate = useNavigate();
     const [cv, setCv] = useState(null);
     const [cvNotFound, setCvNotFound] = useState(false);
-    console.log(id);
+
     useEffect(() => {
         const fetchCv = async () => {
             try {
-                const response = await fetch(`https://efrei-api-rest-project-g2.onrender.com/api/cv/${id}`);
+                const response = await fetch(`https://efrei-api-rest-project-g2.onrender.com/api/cv/user/${user.id}`, {
+                    method: 'GET',
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    },
+                });
                 if (!response.ok) {
                     if (response.status === 404) {
                         setCvNotFound(true); // CV non trouvé
@@ -31,12 +38,12 @@ function MyCv() {
         };
 
         fetchCv();
-    }, [id]);
+    }, [user.id]);
 
     const deleteCV = async () => {
         if (window.confirm('Êtes-vous sûr de vouloir supprimer ce CV ? Cette action est irréversible.')) {
             try {
-                const response = await fetch(`https://efrei-api-rest-project-g2.onrender.com/api/cv/${id}`, {
+                const response = await fetch(`https://efrei-api-rest-project-g2.onrender.com/api/cv/${user.id}`, {
                     method: 'DELETE',
                 });
 

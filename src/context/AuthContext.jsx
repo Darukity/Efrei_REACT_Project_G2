@@ -1,11 +1,24 @@
-import React, { useState, createContext } from 'react';
+import React, { useState, useEffect, createContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
 
 const AuthContext = createContext(null);
+
 const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(localStorage.getItem('user') ?? null);
-    const [token, setToken] = useState(localStorage.getItem('token') ?? null);
+    const navigate = useNavigate();
+    const [user, setUser] = useState(null);
+    const [token, setToken] = useState(null);
+    const [loading, setLoading] = useState(true); // Ajout du chargement initial
+
+    useEffect(() => {
+        const storedUser = localStorage.getItem('user');
+        const storedToken = localStorage.getItem('token');
+
+        if (storedUser && storedToken) {
+            setUser(JSON.parse(storedUser));
+            setToken(storedToken);
+        }
+        setLoading(false); // Fin du chargement une fois les données récupérées
+    }, []);
 
     const login = (value) => {
         localStorage.setItem('token', value.token);
@@ -13,12 +26,13 @@ const AuthProvider = ({ children }) => {
         setToken(value.token);
         setUser(value.user);
     };
-    console.log(user)
+
     const logout = () => {
         setUser(null);
         setToken(null);
         localStorage.removeItem('user');
         localStorage.removeItem('token');
+        navigate('/');
     };
 
     return (
@@ -26,8 +40,9 @@ const AuthProvider = ({ children }) => {
             value={{
                 user,
                 token,
+                loading, // Ajouter l'état de chargement au contexte
                 login,
-                logout
+                logout,
             }}
         >
             {children}
