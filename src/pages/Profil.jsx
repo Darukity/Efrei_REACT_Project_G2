@@ -13,7 +13,7 @@ function Profil() {
     const initialValues = {
         name: user.name || '',
         email: user.email || '',
-        password: user.password || ''
+        password: ''
     };
 
     const validationSchema = Yup.object({
@@ -53,6 +53,26 @@ function Profil() {
         } catch (error) {
             console.error('Erreur lors de la mise à jour du profil:', error);
             toast.error('Échec de la mise à jour du profil.');
+        }
+    };
+
+    const deleteUser = async () => {
+        if (window.confirm('Êtes-vous sûr de vouloir supprimer votre compte ?')) {
+            try {
+                const response = await fetch(
+                    `https://efrei-api-rest-project-g2.onrender.com/api/user/${user.id}`,
+                    {
+                        method: 'DELETE',
+                        headers: { Authorization: `Bearer ${token}` },
+                    }
+                );
+                if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+                alert('User supprimé avec succès !');
+                navigate('/');
+            } catch (error) {
+                console.error('Failed to delete User:', error);
+                alert('Échec de la suppression du User.');
+            }
         }
     };
 
@@ -128,6 +148,13 @@ function Profil() {
                     </Form>
                 )}
             </Formik>
+            <button
+                type="button"
+                className="btn btn-secondary supp-boutton"
+                onClick={(deleteUser)}
+                >
+                Supprimer Compte
+            </button>
         </div>
     );
 }
