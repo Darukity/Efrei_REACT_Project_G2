@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import '../css/Header.css'; // Import du fichier CSS
+import '../css/Header.css';
 import { AuthContext } from '../context/AuthContext.jsx';
 
 function Header() {
