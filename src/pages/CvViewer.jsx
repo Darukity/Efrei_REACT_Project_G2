@@ -5,7 +5,7 @@ import "../css/CvViewer.css"; // Importer le fichier CSS spécifique
 
 const CvViewer = () => {
     const { id } = useParams(); // Récupère l'ID depuis l'URL
-    const { user, updateUser, token } = useContext(AuthContext);
+    const { user, token } = useContext(AuthContext);
 
     const navigate = useNavigate(); // Pour rediriger
     const [cvData, setCvData] = useState(null);
@@ -39,12 +39,12 @@ const CvViewer = () => {
         };
 
         fetchCv();
-    }, [id]);
+    }, [id, token]);
 
     // Récupération des commentaires du CV
     const fetchComments = async () => {
         try {
-            const response = await fetch(`https://efrei-api-rest-project-g2.onrender.com/api/cv/${id}/comments`, {
+            const response = await fetch(`https://efrei-api-rest-project-g2.onrender.com/api/review/cv/${id}`, {
                 method: "GET",
                 headers: {
                     'Content-Type': 'application/json',
@@ -55,7 +55,7 @@ const CvViewer = () => {
                 throw new Error('Failed to fetch comments');
             }
             const data = await response.json();
-            setComments(data);
+            setComments(data.recommendations);
         } catch (err) {
             setError(err.message);
         }
@@ -65,19 +65,19 @@ const CvViewer = () => {
     const addComment = async () => {
         if (!newComment.trim()) return; // Empêche l'envoi d'un commentaire vide
         try {
-            const response = await fetch(`https://efrei-api-rest-project-g2.onrender.com/api/cv/${id}/comments`, {
+            const response = await fetch(`https://efrei-api-rest-project-g2.onrender.com/api/review/`, {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${token}`
                 },
-                body: JSON.stringify({ comment: newComment })
+                body: JSON.stringify({ cvId: id, userId: user.id, comment: newComment })
             });
             if (!response.ok) {
                 throw new Error('Failed to add comment');
             }
             const createdComment = await response.json();
-            setComments([...comments, createdComment]); // Ajoute le commentaire localement
+            setComments([...comments, createdComment.recommendation]); // Ajoute le commentaire localement
             setNewComment(''); // Réinitialise le champ
         } catch (err) {
             setError(err.message);
@@ -87,7 +87,7 @@ const CvViewer = () => {
     // Modifier un commentaire
     const editComment = async (commentId, newContent) => {
         try {
-            const response = await fetch(`https://efrei-api-rest-project-g2.onrender.com/api/cv/${id}/comments/${commentId}`, {
+            const response = await fetch(`https://efrei-api-rest-project-g2.onrender.com/api/review/${commentId}`, {
                 method: "PUT",
                 headers: {
                     'Content-Type': 'application/json',
@@ -100,7 +100,7 @@ const CvViewer = () => {
             }
             setComments(
                 comments.map((c) =>
-                    c.id === commentId ? { ...c, comment: newContent } : c
+                    c._id === commentId ? { ...c, comment: newContent } : c
                 )
             );
         } catch (err) {
@@ -111,7 +111,7 @@ const CvViewer = () => {
     // Supprimer un commentaire
     const deleteComment = async (commentId) => {
         try {
-            const response = await fetch(`https://efrei-api-rest-project-g2.onrender.com/api/cv/${id}/comments/${commentId}`, {
+            const response = await fetch(`https://efrei-api-rest-project-g2.onrender.com/api/review/${commentId}`, {
                 method: "DELETE",
                 headers: {
                     'Content-Type': 'application/json',
@@ -121,7 +121,7 @@ const CvViewer = () => {
             if (!response.ok) {
                 throw new Error('Not authorized to delete this comment');
             }
-            setComments(comments.filter((c) => c.id !== commentId));
+            setComments(comments.filter((c) => c._id !== commentId));
         } catch (err) {
             alert(err.message);
         }
@@ -146,6 +146,7 @@ const CvViewer = () => {
     if (!cvData) {
         return <div className="cv-viewer-loading">Chargement...</div>;
     }
+
     return (
         <div className="cv-viewer-container">
             <header className="cv-viewer-header">
@@ -171,16 +172,16 @@ const CvViewer = () => {
                             <h3>Commentaires</h3>
                             <ul className="cv-viewer-comments-list">
                                 {comments.map((comment) => (
-                                    <li key={comment.id} className="cv-viewer-comment">
-                                        <p><strong>{comment.user.name}:</strong> {comment.comment}</p>
+                                    <li key={comment._id} className="cv-viewer-comment">
+                                        <p><strong>{comment.userId.name}:</strong> {comment.comment}</p>
                                         {/* Boutons de gestion */}
-                                        {comment.user.id === user.id && (
-                                            <button onClick={() => editComment(comment.id, prompt('Modifier le commentaire', comment.comment))}>
+                                        {comment.userId._id === user.id && (
+                                            <button onClick={() => editComment(comment._id, prompt('Modifier le commentaire', comment.comment))}>
                                                 Modifier
                                             </button>
                                         )}
-                                        {(comment.user.id === user.id || cvData.ownerId === user.id) && (
-                                            <button onClick={() => deleteComment(comment.id)}>Supprimer</button>
+                                        {(comment.userId._id === user.id || cvData.userId === user.id) && (
+                                            <button onClick={() => deleteComment(comment._id)}>Supprimer</button>
                                         )}
                                     </li>
                                 ))}
