@@ -11,14 +11,14 @@ function Profil() {
     const [editMode, setEditMode] = useState(false);
 
     const initialValues = {
-        name: user?.name || '',
-        email: user?.email || '',
-        password: user?.password || ''
+        name: user.name || '',
+        email: user.email || '',
+        password: user.password || ''
     };
 
     const validationSchema = Yup.object({
         name: Yup.string()
-            .max(15, 'Le Nom doit contenir 15 caractères ou moins.')
+            .max(25, 'Le Nom doit contenir 25 caractères ou moins.')
             .required('Le Nom est requis.'),
         email: Yup.string().email('Email invalide').required("L'email est requis."),
         password: Yup.string()
