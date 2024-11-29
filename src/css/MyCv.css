@@ -1,125 +1,54 @@
-.view-edit-cv-container {
+.my-cv-container {
     max-width: 800px;
     margin: 20px auto;
     padding: 20px;
-    background: #f9f9f9;
+    background-color: #f4f4f4;
     border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+    margin-top: 4em;
 }
 
-/*
-h1, h2 {
+.mycv-button {
+    display: block;
+    margin: 10px auto;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
     text-align: center;
-    margin-bottom: 20px;
-    color: #333;
-}
-*/
-.form-section {
-    margin-bottom: 30px;
 }
 
-.nested-form-group {
-    margin-bottom: 20px;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background: #fff;
-}
-
-.form-control {
-    width: 100%;
-    margin-bottom: 10px;
-    padding: 10px;
-    font-size: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-.form-control:focus {
-    border-color: #007bff;
-    outline: none;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-}
-
-.button-cv {
-    margin-top: 10px;
-}
-
-.btn-danger {
-    background-color: #dc3545;
+.my-cv-container .mycv-button-add {
+    background-color: #007bff; 
     color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
 }
 
-.btn-danger:hover {
-    background-color: #c82333;
-}
-
-.btn-secondary {
-    background-color: #6c757d;
+.my-cv-container .mycv-button-remove {
+    background-color: #ff9800; 
     color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
 }
 
-.btn-secondary:hover {
-    background-color: #5a6268;
-}
-
-.btn-primary {
-    width: 100%;
-    background-color: #007bff;
+.my-cv-container .mycv-button-delete {
+    background-color: #f44336; 
     color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1.1rem;
 }
 
-.btn-primary:hover {
-    background-color: #0056b3;
+.my-cv-container .mycv-button-save {
+    background-color: #28a745; 
+    color: white;
 }
 
-.no-cv-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh; /* Prend toute la hauteur de l'écran */
-    text-align: center;
-    background-color: #f8f9fa; /* Couleur de fond claire */
-    color: #343a40; /* Couleur du texte sombre */
-    padding: 20px;
+.my-cv-container .mycv-button:hover {
+    opacity: 0.9;
 }
 
-.no-cv-container h2 {
-    font-size: 2.5rem; /* Texte principal en grand */
-    margin-bottom: 20px;
-    font-weight: bold;
-    color: #dc3545; /* Rouge pour signaler l'absence */
+.top_space {
+    margin-top: 30px;
 }
 
-.no-cv-container p {
-    font-size: 1.2rem; /* Texte secondaire */
-    margin-bottom: 30px;
-    line-height: 1.5;
-}
-
-.no-cv-container .btn-link {
-    font-size: 1.2rem;
-    color: #007bff; /* Couleur du lien */
-    text-decoration: none; /* Pas de soulignement */
-    border-bottom: 1px solid transparent;
-    transition: all 0.3s ease;
-}
-
-.no-cv-container .btn-link:hover {
-    color: #0056b3; /* Couleur au survol */
-    border-bottom: 1px solid #0056b3; /* Soulignement au survol */
+.mycv-button-navigate {
+    background-color: #c642e0; 
+    color: white;
 }
