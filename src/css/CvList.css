@@ -1,5 +1,15 @@
 /* Conteneur principal pour la liste des CV */
-.cvlist-container {
+
+.cvList-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.cvlist {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -38,4 +48,16 @@
     font-weight: bold;
     color: #333;
   }
+
+.cvlist-search {
+    width: 30%;
+    height: 40px;
+    display: flex;
+    padding: 10px;
+    margin-top: 4em;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
   
