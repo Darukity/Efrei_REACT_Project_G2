@@ -165,6 +165,7 @@ const CreatorCv = () => {
                                                 </div>
                                                 <button
                                                     type="button"
+                                                    className="remove-button"
                                                     onClick={() => remove(index)}
                                                 >
                                                     Retirer
@@ -173,6 +174,7 @@ const CreatorCv = () => {
                                         ))}
                                         <button
                                             type="button"
+                                            className="add-button"
                                             onClick={() =>
                                                 push({
                                                     degree: '',
@@ -232,6 +234,7 @@ const CreatorCv = () => {
                                                 </div>
                                                 <button
                                                     type="button"
+                                                    className="remove-button"
                                                     onClick={() => remove(index)}
                                                 >
                                                     Retirer
@@ -240,6 +243,7 @@ const CreatorCv = () => {
                                         ))}
                                         <button
                                             type="button"
+                                            className="add-button"
                                             onClick={() =>
                                                 push({
                                                     jobTitle: '',
@@ -264,7 +268,7 @@ const CreatorCv = () => {
                             </label>
                         </section>
 
-                        <button type="submit" disabled={isSubmitting}>
+                        <button type="submit" className="submit-button" disabled={isSubmitting}>
                             {isSubmitting ? 'Enregistrement...' : 'Enregistrer le CV'}
                         </button>
                     </Form>
