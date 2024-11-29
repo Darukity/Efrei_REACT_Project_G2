@@ -11,9 +11,9 @@ function Profil() {
     const [editMode, setEditMode] = useState(false);
 
     const initialValues = {
-        name: user?.name || '',
-        email: user?.email || '',
-        password: user?.password || ''
+        name: user.name || '',
+        email: user.email || '',
+        password: user.password || ''
     };
 
     const validationSchema = Yup.object({

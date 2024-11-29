@@ -247,6 +247,16 @@ const CvViewer = () => {
                     )}
                 </section>
             </main>
+            <footer className="cv-viewer-footer">
+                <button className="cv-viewer-button" onClick={() => navigate('/browse-cvs')}>
+                    Retour
+                </button>
+                {cvData.userId === user.id && (
+                    <button className="cv-viewer-button" onClick={() => navigate(`/my-cv`)}>
+                        Éditer
+                    </button>
+                )}
+            </footer>
         </div>
     );
 };
