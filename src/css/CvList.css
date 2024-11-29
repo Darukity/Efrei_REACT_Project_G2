@@ -1,0 +1,41 @@
+/* Conteneur principal pour la liste des CV */
+.cvlist-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 16px;
+    justify-content: center;
+    margin-top: 4em;
+  }
+  
+  /* Carte pour chaque CV */
+  .cvlist-card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+    cursor: pointer;
+    width: 150px;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  
+  .cvlist-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Icône de document */
+  .cvlist-icon {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 8px;
+  }
+  
+  /* Nom du CV */
+  .cvlist-name {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+  }
+  
