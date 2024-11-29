@@ -134,7 +134,7 @@ function MyCv() {
 
     return (
         <div className="my-cv-container">
-            <button onClick={navigate(`/CvViewer/${cv[0]._id}`)} className="mycv-button mycv-button-navigate">
+            <button onClick={() => navigate(`/CvViewer/${cv[0]._id}`)} className="mycv-button mycv-button-navigate">
                 Voir mon CV formater et les commentaires recu
              </button>
             <h1>Gérer mon CV</h1>
