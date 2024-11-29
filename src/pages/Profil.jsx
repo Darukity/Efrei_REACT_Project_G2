@@ -18,11 +18,17 @@ function Profil() {
 
     const validationSchema = Yup.object({
         name: Yup.string()
-            .max(15, 'Le Nom doit contenir 15 caractères ou moins.')
-            .required('Le Nom est requis.'),
-        email: Yup.string().email('Email invalide').required("L'email est requis."),
+            .required("Le nom est requis."),
+        email: Yup.string()
+            .email("Adresse e-mail invalide.")
+            .required("L'email est requis."),
         password: Yup.string()
-            .max(15, 'Le Password doit contenir 15 caractères ou moins.')
+            .required("Le mot de passe est requis.")
+            .matches(
+                /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*])/,
+                "Le mot de passe doit contenir au moins 8 caractères, une majuscule, un chiffre et un caractère spécial."
+            )
+            .min(8, "Le mot de passe doit contenir au moins 8 caractères."),
     });
 
     const handleSubmit = async (values) => {
