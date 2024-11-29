@@ -15,7 +15,6 @@ import MyCv from './pages/MyCv.jsx';
 import Profil from './pages/Profil.jsx';
 import CvList from './pages/CvList.jsx';
 import CvViewer from './pages/CvViewer.jsx';
-//import Welcome from './components/Bonjour.jsx';
 
 function App() {
     return (
