@@ -50,8 +50,6 @@ const CvViewer = () => {
     if (!cvData) {
         return <div className="cv-viewer-loading">Chargement...</div>;
     }
-    console.log("user id = ", user.id)
-    console.log("user id depuis cv = ", user.id)
     return (
         <div className="cv-viewer-container">
             <header className="cv-viewer-header">
@@ -89,7 +87,7 @@ const CvViewer = () => {
                 <button className="cv-viewer-button" onClick={() => navigate('/browse-cvs')}>
                     Retour
                 </button>
-                {cvData.isOwned && (
+                {cvData.userId === user.id && (
                     <button className="cv-viewer-button" onClick={() => navigate(`/my-cv`)}>
                         Éditer
                     </button>
