@@ -3,7 +3,7 @@
 <h2>Description</h2>
 <p>Ce projet frontend, réalisé avec React.js, est une interface utilisateur pour une application complète permettant de gérer des CVs, des profils utilisateurs, ainsi que des systèmes de reviews. 
 Il est conçu pour répondre aux spécifications de l'énoncé du projet et inclut toutes les fonctionnalités requises.</p>
-<p>Le projet a été développé en collaboration par trois membres de l'équipe : <strong>Loris Navarro</strong>, <strong>Samuel Charton</strong>, et <strong>Gaëtan Maire</strong>. Nous avons travaillé ensemble, en constante communication, pour surmonter les défis et garantir une intégration fluide de toutes les parties.</p>
+<p>Le projet a été développé en collaboration par trois membres de l'équipe n°2 : <strong>Loris Navarro</strong>, <strong>Samuel Charton</strong>, et <strong>Gaëtan Maire</strong>. Nous avons travaillé ensemble, en constante communication, pour surmonter les défis et garantir une intégration fluide de toutes les parties.</p>
 
 <h2>Mise en route</h2>
 <p><strong>Étapes pour exécuter le projet :</strong></p>
